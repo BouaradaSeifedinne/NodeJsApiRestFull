@@ -1,0 +1,24 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "api restFull newscoin",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "api",
+    "restFull",
+    "news",
+    "coin"
+  ],
+  "author": "Bouarada Seifedinne",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "mongodb": "^3.0.4",
+    "nodemon": "^1.17.1",
+    "passport-http-bearer": "^1.0.1"
+  }
+}
