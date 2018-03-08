@@ -21,6 +21,7 @@ module.exports = {
         story.price = req.body.price;
         story.thumbnail = req.body.thumbnail;
         story.dateLastUpdate = new Date();
+        story.tags = req.body.tags;
 
         story.save(function(err) {
           if(err)
