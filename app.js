@@ -3,8 +3,8 @@
 /**** Import ****/
 const express = require('express')
 var bodyParser = require('body-parser')
-var MongoClient = require('mongodb').MongoClient;
 //var passport = require('passport');
+var mongoose = require('mongoose');
 var Strategy = require('passport-http-bearer').Strategy;
 var routes = require('./routes').router;
 
@@ -17,6 +17,14 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 // parse application/json
 app.use(bodyParser.json())
+
+//Connect to mongoose
+mongoose.connect('mongodb://localhost:27017/newscoin');
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  console.log('Connection success');
+});
 
 /****Configure Routes ****/
 
