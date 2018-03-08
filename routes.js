@@ -10,9 +10,9 @@ exports.router = (function(){
 
   //Story Routes
   routes.route('/story/show/').get(story.getStory);
-  routes.route('/story/show/').put(story.updateStory);
+  routes.route('/story/update/:id_story').put(story.updateStory);
   routes.route('/story/add/').post(story.setStory);
-  routes.route('/story/delete/').put(story.updateStory);
+  routes.route('/story/delete/:id_story').put(story.DeleteStory);
 
   return routes;
 })();

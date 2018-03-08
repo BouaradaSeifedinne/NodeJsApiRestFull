@@ -34,7 +34,11 @@ var storySchema = mongoose.Schema({
   thumbnail:{
     type: String,
     required: true
-  }
+  },
+  tags:[{
+    key: String,
+    value: String
+  }]
 });
 
 var Story = mongoose.model('story', storySchema);
