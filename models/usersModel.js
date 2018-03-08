@@ -34,6 +34,10 @@ var usersSchema = mongoose.Schema({
   option:[{
     key: String,
     value: String
+  }],
+  tags: [{
+     key: String,
+     value: String
   }]
 });
 
