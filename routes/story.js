@@ -14,7 +14,23 @@ module.exports = {
 
     },
     updateStory: function(req, res) {
-      res.status('200').json({'success': 'updateStory ok'});
+      Story.findOne({_id: req.params.id_story}, function(err, story){
+
+        story.title = req.body.title;
+        story.content = req.body.content;
+        story.price = req.body.price;
+        story.thumbnail = req.body.thumbnail;
+        story.dateLastUpdate = new Date();
+
+        story.save(function(err) {
+          if(err)
+          {
+            res.status(400).json({'error': err});
+          }
+            res.status(200).json({'success': 'Updated'});
+        });
+      });
+      //res.status('200').json({'success': 'updateStory ok'});
     },
     setStory : function(req, res){
       //res.status('200').json({'success': 'setStory ok'});
@@ -25,7 +41,7 @@ module.exports = {
       story.content = req.body.content;
       story.price = req.body.price;
       story.thumbnail = req.body.thumbnail;
-
+      story.tags = req.body.tags;
       story.save(function(err) {
         if(err)
         {
@@ -33,8 +49,21 @@ module.exports = {
         }
           res.status(200).json({'success': 'created'});
       });
+    },
+    DeleteStory: function(req, res){
+      Story.findOne({_id: req.params.id_story}, function(err, story){
 
+          story.status = 0;
+          story.dateLastUpdate = new Date();
 
-    }
+        story.save(function(err) {
+          if(err)
+          {
+            res.status(400).json({'error': err});
+          }
+            res.status(200).json({'success': 'Deleted'});
+        });
+      });
+    },
 
 }
