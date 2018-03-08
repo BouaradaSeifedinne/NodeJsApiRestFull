@@ -16,10 +16,11 @@
   "license": "ISC",
   "dependencies": {
     "async": "^2.6.0",
+    "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
+    "jsonwebtoken": "^8.2.0",
     "mongoose": "^5.0.9",
-    "nodemon": "^1.17.1",
-    "passport-http-bearer": "^1.0.1"
+    "nodemon": "^1.17.1"
   }
 }
