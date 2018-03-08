@@ -9,3 +9,5 @@ Model d'architecture d'un api restFull avec nodejs EXPRESS 4 et mongodb
 
 ### run npm install
     'npm install'
+### Launch Application
+    'nodemon app' or 'node app'
