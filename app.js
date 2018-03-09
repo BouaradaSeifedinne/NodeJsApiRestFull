@@ -1,11 +1,9 @@
 'use strict';
 
 /**** Import ****/
-const express = require('express')
-var bodyParser = require('body-parser')
-//var passport = require('passport');
+const express = require('express');
+var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-var Strategy = require('passport-http-bearer').Strategy;
 var routes = require('./routes').router;
 
 const app = express()

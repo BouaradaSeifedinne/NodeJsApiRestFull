@@ -18,6 +18,7 @@ module.exports = {
 
         story.title = req.body.title;
         story.content = req.body.content;
+        story.summary = req.body.summary;
         story.price = req.body.price;
         story.thumbnail = req.body.thumbnail;
         story.dateLastUpdate = new Date();
@@ -40,6 +41,7 @@ module.exports = {
       story.title = req.body.title;
       story.status = req.body.status;
       story.content = req.body.content;
+      story.summary = req.body.summary;
       story.price = req.body.price;
       story.thumbnail = req.body.thumbnail;
       story.tags = req.body.tags;

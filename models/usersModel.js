@@ -3,8 +3,12 @@
 var mongoose = require('mongoose');
 //var connecte = require('../config/database');
 
-var storySchema = mongoose.Schema({
-  authorId: {
+var usersSchema = mongoose.Schema({
+  userLogin: {
+    type: String,
+    required: true
+  },
+  userPassword: {
     type: String,
     required: true
   },
@@ -15,36 +19,32 @@ var storySchema = mongoose.Schema({
   dateLastUpdate:{
     type: Date
   },
-  title:{
+  userFirstName:{
     type: String,
     required: true
   },
-  status:{
+  userLastName:{
     type: String,
     required: true
   },
-  summary:{
+  userEmail:{
     type: String,
     required: true
   },
-  content:{
-    type: String,
+  userStatus:{
+    type: Boolean,
     required: true
   },
-  price:{
-    type: String,
-    required: true
-  },
-  thumbnail:{
-    type: String,
-    required: true
-  },
-  tags:[{
+  option:[{
     key: String,
     value: String
+  }],
+  tags: [{
+     key: String,
+     value: String
   }]
 });
 
-var Story = mongoose.model('story', storySchema);
+var Users = mongoose.model('users', usersSchema);
 
-module.exports = Story;
+module.exports = Users;
