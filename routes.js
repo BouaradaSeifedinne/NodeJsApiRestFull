@@ -20,6 +20,7 @@ exports.router = (function(){
   routes.route('/users/update/:id_user').put(users.updateUser);
   routes.route('/users/add/').post(users.setUser);
   routes.route('/users/delete/:id_user').put(users.DeleteUser);
+  routes.route('/users/login/').post(users.login);
 
   return routes;
 })();

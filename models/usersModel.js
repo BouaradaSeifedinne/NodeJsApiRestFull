@@ -8,6 +8,10 @@ var usersSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  userPassword: {
+    type: String,
+    required: true
+  },
   dateCreationStory:{
     type: Date,
     default: Date.now
