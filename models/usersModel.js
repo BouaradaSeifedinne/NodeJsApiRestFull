@@ -1,7 +1,6 @@
 'use strict';
 
 var mongoose = require('mongoose');
-//var connecte = require('../config/database');
 
 var usersSchema = mongoose.Schema({
   userLogin: {
