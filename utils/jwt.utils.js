@@ -9,7 +9,7 @@ module.exports = {
     generateTokenForUser: function(userData){
         return jwt.sign({
             userId: userData._id,
-            isAdmin: userData.userStatus
+            userStatus: userData.userStatus
         },
         JWT_SIGN_SECRET,
         {
