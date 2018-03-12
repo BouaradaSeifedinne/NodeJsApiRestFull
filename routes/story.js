@@ -2,7 +2,7 @@
 var asynclib = require('async');
 var Story = require('../models/storyModel');
 module.exports = {
-    getStory: function(req, res) {
+    getStories: function(req, res) {
         //res.status('200').json({'success': 'getStory ok'});
         Story.find({}, function(err, storys) {
            if (err) throw err;
@@ -72,6 +72,15 @@ module.exports = {
             res.status(200).json({'success': 'Status Update'});
         });
       });
+    },
+    getStoriesBy: function(req, res){
+      Story.find({"tags.key": {$in: req.params.key}, "tags.value": {$in: req.params.value}}, function(err, stories) {
+         if (err) throw err;
+
+         // object of all the Storys
+         res.status('200').json(stories);
+         console.log(req.params);
+       });
     },
 
 }
