@@ -3,6 +3,8 @@
     "email" : "email is not valid",
     "emptyParams": "missing parameters",
     "password": "password invalid (must lenght 4 - 8 and include number at )",
-    "user" : "unable to verfiy user"
+    "user" : "unable to verfiy user",
+    "userNotExist" : "user not exist in DB",
+    "database" : "invalid operation"
   }
 }

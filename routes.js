@@ -14,6 +14,7 @@ exports.router = (function(){
   routes.route('/story/update/:id_story').put(story.updateStory);
   routes.route('/story/add/').post(story.setStory);
   routes.route('/story/delete/:id_story').put(story.DeleteStory);
+  routes.route('/story/updateStatus/:id_story').put(story.UpdateStatusStory);
 
   //Users routes
   routes.route('/users/show/').get(users.getUsers);

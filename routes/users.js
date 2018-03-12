@@ -4,7 +4,7 @@ var asynclib = require('async');
 var Users = require('../models/usersModel');
 var jwtUtils = require('../utils/jwt.utils');
 var message = require('../utils/message');
-console.log(message.error);
+//console.log(message.error);
 //Constants
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const PASSWORD_REGEX = /^(?=.*\d).{4,8}$/;
@@ -101,7 +101,7 @@ module.exports = {
             }
             else
             {
-                 return res.status(404).json({'error' : 'user not exist in DB'});
+                 return res.status(404).json({'error' : message.error.userNotExist});
             }
           },
           function(userFound, resBycrypt, done){
@@ -110,7 +110,7 @@ module.exports = {
                 }
                 else
                 {
-                    return res.status(403).json({ 'error': 'invalid password'});
+                    return res.status(403).json({ 'error': message.error.password});
                 }
           }
         ],function(userFound){
@@ -123,7 +123,7 @@ module.exports = {
             }
             else
             {
-                 return res.status(500).json({'error': 'unable to verfiy user'});
+                 return res.status(500).json({'error': message.error.user});
             }
         });
     }
