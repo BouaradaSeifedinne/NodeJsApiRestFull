@@ -82,5 +82,15 @@ module.exports = {
          console.log(req.params);
        });
     },
+    getStoryById: function(req, res){
+      Story.findOne({_id: req.params.id_story}, function(err, story){
+
+          if(err)
+          {
+            res.status(400).json({'error': err});
+          }
+            res.status(200).json(story);
+      });
+    },
 
 }
