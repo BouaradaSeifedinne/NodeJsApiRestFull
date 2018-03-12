@@ -3,7 +3,8 @@ var bcrypt = require('bcrypt');
 var asynclib = require('async');
 var Users = require('../models/usersModel');
 var jwtUtils = require('../utils/jwt.utils');
-
+var message = require('../utils/message');
+//console.log(message.error);
 //Constants
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const PASSWORD_REGEX = /^(?=.*\d).{4,8}$/;
@@ -68,17 +69,17 @@ module.exports = {
         //Todo verify mail regex & password lenght.
         if(email == null || password == null)
         {
-            return res.status(400).json({'error': 'missing parameters'});
+            return res.status(400).json({'error': message.error.emptyParams});
         }
 
         if(!EMAIL_REGEX.test(email))
         {
-           return res.status(400).json({'error': 'email is not valid'});
+           return res.status(400).json({'error': message.error.email});
         }
 
         if(!PASSWORD_REGEX.test(password))
         {
-           return res.status(400).json({'error': 'password invalid (must lenght 4 - 8 and include number at )'});
+           return res.status(400).json({'error': message.error.email});
         }
 
         asynclib.waterfall([
@@ -88,7 +89,7 @@ module.exports = {
               done(null, userFound);
             })
             .catch(function(err){
-              return res.status(500).json({'error': 'unable to verfiy user'});
+              return res.status(500).json({'error': message.error.user});
             });
           },
           function(userFound, done){
@@ -100,7 +101,7 @@ module.exports = {
             }
             else
             {
-                 return res.status(404).json({'error' : 'user not exist in DB'});
+                 return res.status(404).json({'error' : message.error.userNotExist});
             }
           },
           function(userFound, resBycrypt, done){
@@ -109,7 +110,7 @@ module.exports = {
                 }
                 else
                 {
-                    return res.status(403).json({ 'error': 'invalid password'});
+                    return res.status(403).json({ 'error': message.error.password});
                 }
           }
         ],function(userFound){
@@ -122,7 +123,7 @@ module.exports = {
             }
             else
             {
-                 return res.status(500).json({'error': 'unable to verfiy user'});
+                 return res.status(500).json({'error': message.error.user});
             }
         });
     }

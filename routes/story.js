@@ -2,7 +2,7 @@
 var asynclib = require('async');
 var Story = require('../models/storyModel');
 module.exports = {
-    getStory: function(req, res) {
+    getStories: function(req, res) {
         //res.status('200').json({'success': 'getStory ok'});
         Story.find({}, function(err, storys) {
            if (err) throw err;
@@ -16,6 +16,7 @@ module.exports = {
     updateStory: function(req, res) {
       Story.findOne({_id: req.params.id_story}, function(err, story){
 
+        //story.authorId = req.body.authorId;
         story.title = req.body.title;
         story.content = req.body.content;
         story.summary = req.body.summary;
@@ -45,6 +46,7 @@ module.exports = {
       story.price = req.body.price;
       story.thumbnail = req.body.thumbnail;
       story.tags = req.body.tags;
+
       story.save(function(err) {
         if(err)
         {
@@ -54,9 +56,12 @@ module.exports = {
       });
     },
     DeleteStory: function(req, res){
+
+    },
+    UpdateStatusStory: function(req, res){
       Story.findOne({_id: req.params.id_story}, function(err, story){
 
-          story.status = 0;
+          story.status = req.body.status;
           story.dateLastUpdate = new Date();
 
         story.save(function(err) {
@@ -64,9 +69,18 @@ module.exports = {
           {
             res.status(400).json({'error': err});
           }
-            res.status(200).json({'success': 'Deleted'});
+            res.status(200).json({'success': 'Status Update'});
         });
       });
+    },
+    getStoriesBy: function(req, res){
+      Story.find({"tags.key": {$in: req.params.key}, "tags.value": {$in: req.params.value}}, function(err, stories) {
+         if (err) throw err;
+
+         // object of all the Storys
+         res.status('200').json(stories);
+         console.log(req.params);
+       });
     },
 
 }
