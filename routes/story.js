@@ -89,7 +89,7 @@ module.exports = {
           {
             res.status(400).json({'error': err});
           }
-            res.status(200).json(story0);
+            res.status(200).json(story);
       });
     },
 
