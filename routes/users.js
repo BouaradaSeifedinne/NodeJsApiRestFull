@@ -12,6 +12,14 @@ const PASSWORD_REGEX = /^(?=.*\d).{4,8}$/;
 module.exports = {
     getUsers: function(req, res) {
         //res.status('200').json({'success': 'getStory ok'});
+        // getting auth header
+      /*  var headerAuth = req.headers['authorization'];
+        var userId = jwtUtils.getUserId(headerAuth);
+        if(userId < 0)
+        {
+           return res.status(400).json({'error': 'wrong token'});
+        }*/
+        
         Users.find({}, function(err, users) {
            if (err) throw err;
 
