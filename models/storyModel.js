@@ -7,6 +7,9 @@ var storySchema = mongoose.Schema({
     type: String,
     required: true
   },
+  editorId: {
+    type: String,
+  },
   dateCreationStory:{
     type: Date,
     default: Date.now
@@ -38,6 +41,14 @@ var storySchema = mongoose.Schema({
     type: String,
     required: true
   },
+  review:[{
+    clientId: String,
+    reviewValue: Number,
+    dateCreationReview: {
+      type: Date,
+      default: Date.now
+    }
+  }],
   tags:[{
     key: String,
     value: String

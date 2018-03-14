@@ -14,9 +14,10 @@ exports.router = (function(){
   routes.route('/story/update/:id_story').put(story.updateStory);
   routes.route('/story/add/').post(story.setStory);
   routes.route('/story/delete/:id_story').put(story.DeleteStory);
-  routes.route('/story/updateStatus/:id_story').put(story.UpdateStatusStory);
+  routes.route('/story/validatestory/:id_story').put(story.UpdateStatusStory);
   routes.route('/story/search/:key&:value').get(story.getStoriesBy);
   routes.route('/story/show/:id_story').get(story.getStoryById);
+  routes.route('/story/addreview/:id_story').put(story.updateReviewStory);
 
   //Users routes
   routes.route('/users/show/').get(users.getUsers);
