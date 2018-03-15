@@ -1,9 +1,10 @@
 
 var asynclib = require('async');
 var Story = require('../models/storyModel');
+
 module.exports = {
     getStories: function(req, res) {
-        Story.find({},"_id title summary tags dateCreationStory dateLastUpdate authorId price status thumbnail review", function(err, storys) {
+        Story.find({_id: req.params.id_subject},"_id title summary tags dateCreationStory dateLastUpdate authorId editorId price status thumbnail review", function(err, storys) {
            if (err) throw err;
 
            // object of all the Storys
@@ -24,7 +25,7 @@ module.exports = {
         story.dateLastUpdate = new Date();
         story.tags = req.body.tags;
 
-        story.save(function(err) {
+        story.save(function(err, story) {
           if(err)
           {
             res.status(400).json({'error': err});
@@ -60,15 +61,16 @@ module.exports = {
     UpdateStatusStory: function(req, res){
       Story.findOne({_id: req.params.id_story}, function(err, story){
 
+          story.editorId = req.body.editorId;
           story.status = req.body.status;
           story.dateLastUpdate = new Date();
 
-        story.save(function(err) {
+        story.save(function(err, story) {
           if(err)
           {
             res.status(400).json({'error': err});
           }
-            res.status(200).json({'success': 'Status Update'});
+            res.status(200).json({"_id" : story._id, "status": story.status});
         });
       });
     },
@@ -95,7 +97,7 @@ module.exports = {
       Story.findOne({_id: req.params.id_story}, function(err, story){
 
         //story.authorId = req.body.authorId;
-        story.review = req.review;
+        story.review = req.body.review;
 
         story.save(function(err) {
           if(err)

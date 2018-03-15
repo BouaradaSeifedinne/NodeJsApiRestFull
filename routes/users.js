@@ -19,8 +19,8 @@ module.exports = {
         {
            return res.status(400).json({'error': 'wrong token'});
         }*/
-        
-        Users.find({}, function(err, users) {
+
+        Users.find({}, "userLogin userFirstName userEmail userLastName option tags userStatus dateCreationUser", function(err, users) {
            if (err) throw err;
 
            // object of all the Storys
