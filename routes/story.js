@@ -4,7 +4,7 @@ var Story = require('../models/storyModel');
 
 module.exports = {
     getStories: function(req, res) {
-        Story.find({_id: req.params.id_subject},"_id title summary tags dateCreationStory dateLastUpdate authorId editorId price status thumbnail review", function(err, storys) {
+        Story.find({ subjectId: req.params.id_subject },"_id title summary tags dateCreationStory dateLastUpdate subjectId authorId editorId price status thumbnail review", function(err, storys) {
            if (err) throw err;
 
            // object of all the Storys
@@ -46,6 +46,7 @@ module.exports = {
       story.price = req.body.price;
       story.thumbnail = req.body.thumbnail;
       story.tags = req.body.tags;
+      story.subjectId = req.body.subjectId;
 
       story.save(function(err, story) {
         if(err)

@@ -12,7 +12,6 @@ var storySchema = mongoose.Schema({
   },
   subjectId: {
     type: String,
-    required: true
   },
   dateCreationStory:{
     type: Date,

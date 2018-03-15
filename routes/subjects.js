@@ -31,6 +31,7 @@ module.exports = {
     });
   },
   createSubject: function (req, res) {
+
      var subject = new Subjects();
      subject.authorId = req.body.authorId;
      subject.editorId = req.body.editorId;
@@ -39,8 +40,9 @@ module.exports = {
      subject.dateCreationSubject = new Date();
      subject.status = 1;
      subject.tags = req.body.tags;
+     subject.title = req.body.title;
 
-     Subjects.save(function(err, subject) {
+     subject.save(function(err, subject) {
         if(err)
         {
           res.status(400).json({'error': err});
