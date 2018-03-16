@@ -52,4 +52,20 @@ module.exports = {
 
      });
   },
+  updateStatusSubject: function(req, res){
+    Subjects.find({_id: req.params.id_subject}, function(err, subject) {
+
+        subject.editorId = req.body.editorId;
+        subject.status = req.body.status;
+        subject.dateLastUpdate = new Date();
+
+        subject.save(function(err, subject) {
+          if(err)
+          {
+            res.status(400).json({'error': err});
+          }
+            res.status(200).json({'_id': subject._id, "status": subject.status});
+        });
+    });
+  },
 };

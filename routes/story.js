@@ -1,6 +1,7 @@
 
 var asynclib = require('async');
 var Story = require('../models/storyModel');
+var jwtUtils = require('../utils/jwt.utils');
 
 module.exports = {
     getStories: function(req, res) {
@@ -14,6 +15,15 @@ module.exports = {
 
     },
     updateStory: function(req, res) {
+
+      var headerAuth = req.headers['authorization'];
+      var userId = jwtUtils.getUserId(headerAuth);
+
+      if(userId < 0)
+      {
+         return res.status(400).json({'error': 'wrong token'});
+      }
+
       Story.findOne({_id: req.params.id_story}, function(err, story){
 
         //story.authorId = req.body.authorId;
@@ -35,8 +45,16 @@ module.exports = {
       });
       //res.status('200').json({'success': 'updateStory ok'});
     },
-    setStory : function(req, res){
+    createStory : function(req, res){
       //res.status('200').json({'success': 'setStory ok'});
+      var headerAuth = req.headers['authorization'];
+      var userId = jwtUtils.getUserId(headerAuth);
+
+      if(userId < 0)
+      {
+         return res.status(400).json({'error': 'wrong token'});
+      }
+
       var story = new Story();
       story.authorId = req.body.authorId;
       story.title = req.body.title;
@@ -55,9 +73,6 @@ module.exports = {
         }
           res.status(200).json({'_id': story._id, "status": story.status});
       });
-    },
-    DeleteStory: function(req, res){
-
     },
     UpdateStatusStory: function(req, res){
       Story.findOne({_id: req.params.id_story}, function(err, story){
