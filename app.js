@@ -5,6 +5,7 @@ const express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var routes = require('./routes').router;
+var expressValidator = require('express-validator');
 
 
 const app = express()
@@ -16,7 +17,8 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 // parse application/json
 app.use(bodyParser.json())
-
+//express validator
+app.use(expressValidator());
 //Connect to mongoose
 mongoose.connect('mongodb://localhost:27017/newscoin');
 var db = mongoose.connection;
