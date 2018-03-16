@@ -69,7 +69,7 @@ module.exports = {
           req.check('price', 'Invalid price').isFloat({min: 0.00});
           req.check('tags[0][key]', 'Invalid tags key').isAscii().isLength({min: 4}).isIn(['sector']);
           req.check('tags[0][value]', 'Invalid tags sector value').isAscii().isLength({min: 4});
-          req.check('tags[1][key]', 'Invalid tags key').isAscii().isLength({min: 4})isIn(['country']);
+          req.check('tags[1][key]', 'Invalid tags key').isAscii().isLength({min: 4}).isIn(['country']);
           req.check('tags[1][value]', 'Invalid country Value').isAscii().isLength({min: 4});
 
           var errors = req.validationErrors();
