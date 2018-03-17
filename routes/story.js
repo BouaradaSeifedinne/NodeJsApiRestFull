@@ -6,13 +6,13 @@ var jwtUtils = require('../utils/jwt.utils');
 module.exports = {
     getStories: function(req, res) {
 
-        findParams = {};
+      /*  findParams = {};
         if(req.params.id_subject)
         {
           findParams = { subjectId: req.params.id_subject }
-        }
+        } */
 
-        Story.find(findParams,"_id title summary tags dateCreationStory dateLastUpdate subjectId authorId editorId price status thumbnail review", function(err, storys) {
+        Story.find({},"_id title summary tags dateCreationStory dateLastUpdate subjectId authorId editorId price status thumbnail review", function(err, storys) {
            if (err) throw err;
 
            // object of all the Storys
