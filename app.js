@@ -6,6 +6,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var routes = require('./routes').router;
 var expressValidator = require('express-validator');
+require('dotenv').config();
 
 
 const app = express()
@@ -20,7 +21,8 @@ app.use(bodyParser.json())
 //express validator
 app.use(expressValidator());
 //Connect to mongoose
-mongoose.connect('mongodb://localhost:27017/newscoin');
+var mongoAdress = 'mongodb://'+process.env.DB_HOST+':'+process.env.DB_PORT+"/"+process.env.DB_NAME
+mongoose.connect(mongoAdress);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
@@ -39,6 +41,9 @@ app.get('/', function (req, res) {
   res.status(200).json({ success: 'Hello World!'});
 })
 
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!')
+//Server Configure
+
+var port= process.env.SERVER_PORT || 5000;
+app.listen(port, function () {
+  console.log('Example app listening on port '+port+' !');
 })

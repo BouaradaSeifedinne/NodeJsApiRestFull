@@ -2,6 +2,14 @@ version: "3"
 services:
   web:
     image: apinode
+    env_file:
+     - .env
+    environment:
+     - DB_HOST=mongo
+     - DB_PORT=27017
+     - DB_NAME=newscoin
+     - SERVER_PORT =3000
+
     build: .
     ports:
       - "3000:3000"
