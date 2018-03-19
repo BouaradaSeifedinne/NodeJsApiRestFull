@@ -11,7 +11,7 @@ exports.router = (function(){
   var routes = express.Router();
 
   //Story Routes
-  routes.route('/story/feed/:id_subject').get(story.getStories);
+  routes.route('/story/feed/').get(story.getStories);
   routes.route('/story/update/:id_story').put(story.updateStory);
   routes.route('/story/add/').post(story.createStory);
   routes.route('/story/delete/:id_story').put(story.UpdateStatusStory);

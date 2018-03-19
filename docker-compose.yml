@@ -1,13 +1,12 @@
 version: "3"
 services:
   web:
-    image: test
+    image: apinode
+    build: .
     ports:
       - "3000:3000"
     links:
       - mongo
-    volumes:
-      - ./:/src
   mongo:
     image: mongo
     volumes:

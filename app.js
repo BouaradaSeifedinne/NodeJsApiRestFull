@@ -20,7 +20,7 @@ app.use(bodyParser.json())
 //express validator
 app.use(expressValidator());
 //Connect to mongoose
-mongoose.connect('mongodb://mongo:27017/newscoin');
+mongoose.connect('mongodb://localhost:27017/newscoin');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {

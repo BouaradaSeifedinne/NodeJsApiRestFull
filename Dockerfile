@@ -1,9 +1,8 @@
 FROM node:8
 
-WORKDIR /src
+WORKDIR /api
 
-COPY package.json /src
-COPY package-lock.json /src
+ADD . /api
 
 RUN npm install --save
 
