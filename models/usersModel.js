@@ -11,7 +11,7 @@ var usersSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  dateCreationStory:{
+  dateCreationUser:{
     type: Date,
     default: Date.now
   },

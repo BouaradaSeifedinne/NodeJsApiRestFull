@@ -19,8 +19,8 @@ module.exports = {
         {
            return res.status(400).json({'error': 'wrong token'});
         }*/
-        
-        Users.find({}, function(err, users) {
+
+        Users.find({}, "userLogin userFirstName userEmail userLastName option tags userStatus dateCreationUser", function(err, users) {
            if (err) throw err;
 
            // object of all the Storys
@@ -29,7 +29,7 @@ module.exports = {
          });
 
     },
-    updateUser: function(req, res) {
+    updateProfileUser: function(req, res) {
       res.status('200').json({'success': 'updateUser ok'});
     },
     setUser : function(req, res){
@@ -47,12 +47,12 @@ module.exports = {
       user.tags = req.body.tags;
       user.userPassword = hash;
 
-      user.save(function(err) {
+      user.save(function(err, user) {
         if(err)
         {
           res.status(400).json({'error': err});
         }
-          res.status(200).json({'success': 'created'});
+          res.status(200).json({"id": user._id, "status": user.userStatus });
       });
     },
     DeleteUser: function(req, res){
@@ -134,6 +134,24 @@ module.exports = {
                  return res.status(500).json({'error': message.error.user});
             }
         });
-    }
+    },
+    getProfileUser: function(req, res){
+        var headerAuth = req.headers['authorization'];
+        var userId = jwtUtils.getUserId(headerAuth);
+
+        if(userId < 0)
+        {
+           return res.status(400).json({'error': 'wrong token'});
+        }
+
+        Users.findOne({_id: userId}, function(err, user){
+            if(err){
+              res.status(404).json({'error': 'user not found'});
+            }
+
+            res.status(201).json(user);
+        });
+
+    },
 
 }

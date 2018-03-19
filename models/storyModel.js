@@ -10,6 +10,9 @@ var storySchema = mongoose.Schema({
   editorId: {
     type: String,
   },
+  subjectId: {
+    type: String,
+  },
   dateCreationStory:{
     type: Date,
     default: Date.now
