@@ -8,6 +8,6 @@ Model d'architecture d'un api restFull avec nodejs EXPRESS 4 et mongodb
 ## To download the dependencies
 
 ### run npm install
-    'npm install'
+    'npm install --save'
 ### Launch Application
     'nodemon app' or 'node app'
