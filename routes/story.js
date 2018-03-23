@@ -6,11 +6,13 @@ var jwtUtils = require('../utils/jwt.utils');
 module.exports = {
     getStories: function(req, res) {
 
-      /*  findParams = {};
-        if(req.params.id_subject)
+        var headerAuth = req.headers['authorization'];
+        var userId = jwtUtils.getUserId(headerAuth);
+
+        if(userId < 0)
         {
-          findParams = { subjectId: req.params.id_subject }
-        } */
+           return res.status(400).json({'error': 'wrong token'});
+        }
 
         Story.find({}, "_id title summary tags dateCreationStory dateLastUpdate subjectId authorId editorId price status thumbnail review", function(err, storys) {
            if (err) throw err;
@@ -109,6 +111,15 @@ module.exports = {
       }
     },
     UpdateStatusStory: function(req, res){
+
+      var headerAuth = req.headers['authorization'];
+      var userId = jwtUtils.getUserId(headerAuth);
+
+      if(userId < 0)
+      {
+         return res.status(400).json({'error': 'wrong token'});
+      }
+
       Story.findOne({_id: req.params.id_story}, function(err, story){
 
           story.editorId = req.body.editorId;
@@ -125,7 +136,21 @@ module.exports = {
       });
     },
     getStoriesBy: function(req, res){
-      Story.find({"tags.key": {$in: req.params.key}, "tags.value": {$in: req.params.value}}, function(err, stories) {
+
+      var headerAuth = req.headers['authorization'];
+      var userId = jwtUtils.getUserId(headerAuth);
+
+      if(userId < 0)
+      {
+         return res.status(400).json({'error': 'wrong token'});
+      }
+
+
+      console.log(req.body.key);
+      console.log(req.body.value);
+      console.log(req.body.status);
+
+      Story.find({"tags.key": { $in: req.body.key}, "tags.value": { $in: req.body.value}, "status": { $in: req.body.status}}, function(err, stories) {
          if (err) throw err;
 
          // object of all the Storys
@@ -134,6 +159,15 @@ module.exports = {
        });
     },
     getStoryById: function(req, res){
+
+      var headerAuth = req.headers['authorization'];
+      var userId = jwtUtils.getUserId(headerAuth);
+
+      if(userId < 0)
+      {
+         return res.status(400).json({'error': 'wrong token'});
+      }
+
       Story.findOne({_id: req.params.id_story}, function(err, story){
 
           if(err)
@@ -144,6 +178,15 @@ module.exports = {
       });
     },
     updateReviewStory: function(req, res) {
+
+      var headerAuth = req.headers['authorization'];
+      var userId = jwtUtils.getUserId(headerAuth);
+
+      if(userId < 0)
+      {
+         return res.status(400).json({'error': 'wrong token'});
+      }
+
       Story.findOne({_id: req.params.id_story}, function(err, story){
 
         //story.authorId = req.body.authorId;
@@ -155,6 +198,30 @@ module.exports = {
             res.status(400).json({'error': err});
           }
             res.status(200).json({'success': "created"});
+        });
+      });
+    },
+    UpdateStatusStoryByUser: function(req, res){
+
+      var headerAuth = req.headers['authorization'];
+      var userId = jwtUtils.getUserId(headerAuth);
+
+      if(userId < 0)
+      {
+         return res.status(400).json({'error': 'wrong token'});
+      }
+
+      Story.findOne({_id: req.params.id_story}, function(err, story){
+
+          story.status = req.body.status;
+          story.dateLastUpdate = new Date();
+
+        story.save(function(err, story) {
+          if(err)
+          {
+            res.status(400).json({'error': err});
+          }
+            res.status(200).json({"_id" : story._id, "status": story.status});
         });
       });
     },
